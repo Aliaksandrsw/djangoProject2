@@ -27,9 +27,16 @@
 </nav>
 
 <div class="container mt-3">
-    <h1>{{ title }}</h1>
+    <h1>Список новостей</h1>
     <div class="row">
-        <div class="col-md-12">
+     <div class="col-md-3">
+            <div class="list-group">
+                {% for item in news %}
+                <a href="/category/{{ item.category.pk}}" class="list-group-item list-group-item-action">{{ item.category.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-8">
             {% for item in news %}
             <div class="card mb-3">
                 <div class="card-header">
