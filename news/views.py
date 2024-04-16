@@ -27,5 +27,6 @@ class NewsCategories(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cat_id'] = self.kwargs['cat_id']
+        context['categories'] = Category.objects.all()
+        context['selected_category'] = Category.objects.get(pk=self.kwargs['cat_id'])
         return context
