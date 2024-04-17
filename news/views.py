@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 
 from .models import News, Category
 
@@ -30,3 +30,13 @@ class NewsCategories(ListView):
         context['categories'] = Category.objects.all()
         context['selected_category'] = Category.objects.get(pk=self.kwargs['cat_id'])
         return context
+
+
+class ShowNews(DetailView):
+    model = News
+    template_name = 'news/view_news.html'
+    context_object_name = 'item'
+    slug_url_kwarg = 'news_id'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(News.objects.all(), pk=self.kwargs[self.slug_url_kwarg])
