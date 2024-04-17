@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Добавление новости
+{% endblock %}
+
+{% block sidebar %}
+    {% include 'news/inc/side_bar.html' %}
+{% endblock %}
+
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for f in form %}
+            <div class="form-group">
+                <label for="{{ f.id_for_label }}">{{ f.label }}: {{ f }}</label>
+
+                <div class="invalid-feedback">
+                    {{ form.category.errors }}
+                </div>
+            </div>
+
+
+        {% endfor %}
+        <button type="submit" class="btn btn-primary btn-block">Добавить новость</button>
+    </form>
+
+{% endblock %}
+
+
+

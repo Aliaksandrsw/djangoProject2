@@ -1,8 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 
+from .forms import NewsForm
 from .models import News, Category
 
 
@@ -40,3 +42,11 @@ class ShowNews(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(News.objects.all(), pk=self.kwargs[self.slug_url_kwarg])
+
+
+class AddNews(CreateView):
+    form_class = NewsForm
+    template_name = 'news/add_news.html'
+    success_url = reverse_lazy('home')
+
+
