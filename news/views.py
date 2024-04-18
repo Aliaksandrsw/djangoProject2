@@ -17,7 +17,7 @@ class NewsHome(ListView):
     }
 
     def get_queryset(self):
-        return News.objects.all()
+        return News.objects.filter(is_published=True)
 
 
 class NewsCategories(ListView):
@@ -25,10 +25,11 @@ class NewsCategories(ListView):
     context_object_name = 'news'
 
     def get_queryset(self):
-        return News.objects.filter(category_id=self.kwargs['cat_id'])
+        return News.objects.filter(category_id=self.kwargs['cat_id'], is_published=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['title'] = Category.objects.get(pk=self.kwargs['cat_id'])
         context['categories'] = Category.objects.all()
         context['selected_category'] = Category.objects.get(pk=self.kwargs['cat_id'])
         return context
@@ -48,5 +49,3 @@ class AddNews(CreateView):
     form_class = NewsForm
     template_name = 'news/add_news.html'
     success_url = reverse_lazy('home')
-
-
