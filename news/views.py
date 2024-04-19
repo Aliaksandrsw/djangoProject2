@@ -17,7 +17,7 @@ class NewsHome(ListView):
     }
 
     def get_queryset(self):
-        return News.objects.filter(is_published=True)
+        return News.objects.filter(is_published=True).select_related('category')
 
 
 class NewsCategories(ListView):
@@ -25,7 +25,7 @@ class NewsCategories(ListView):
     context_object_name = 'news'
 
     def get_queryset(self):
-        return News.objects.filter(category_id=self.kwargs['cat_id'], is_published=True)
+        return News.objects.filter(category_id=self.kwargs['cat_id'], is_published=True).select_related('category')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
