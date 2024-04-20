@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -11,6 +12,7 @@ from .models import News, Category
 class NewsHome(ListView):
     template_name = 'news/index.html'
     context_object_name = 'news'
+    paginate_by = 2
     extra_context = {
         'title': 'Список новостей',
         'categories': Category.objects.all(),

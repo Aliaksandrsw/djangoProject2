@@ -1,8 +1,5 @@
-<div class="col-md-3">
-    <div class="list-group">
-        {% for cat in categories %}
-            <a href="{{ cat.get_absolute_url }}"
-               class="list-group-item list-group-item-action{% if cat == selected_category %} active{% endif %}">{{ cat.title }}</a>
-        {% endfor %}
-    </div>
+<div class="list-group">
+    {% for item in categories %}
+    <a href="{{ item.get_absolute_url }}"  class="list-group-item list-group-item-action {% if cat == selected_category %} active{% endif %}">{{ item.title }} <span class="badge badge-primary badge-pill">{{ item.cnt }}</span></a>
+    {% endfor %}
 </div>
