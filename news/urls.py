@@ -3,6 +3,7 @@ from django.urls import path, reverse_lazy
 from . import views
 
 urlpatterns = [
+    path('contact/', views.ContactFormView.as_view(), name='contact'),
     path('login/', views.LoginUser.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('', views.NewsHome.as_view(), name='home'),

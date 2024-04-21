@@ -127,3 +127,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = 'home'
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#
+# EMAIL_HOST = "smtp.домен"
+# EMAIL_PORT = 465
+# EMAIL_HOST_USER = "адрес почты"
+# EMAIL_HOST_PASSWORD = "пароль"
+# EMAIL_USE_SSL = True

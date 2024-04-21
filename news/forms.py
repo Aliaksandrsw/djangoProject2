@@ -6,6 +6,11 @@ from .models import *
 from django import forms
 
 
+class ContactForm(forms.Form):
+    subject = forms.CharField(label='Тема', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    content = forms.CharField(label='Текст', widget=forms.TextInput(attrs={'class': 'form-input'}))
+
+
 class NewsForm(forms.ModelForm):
     category = forms.ModelChoiceField(queryset=Category.objects.all(), label='Категории',
                                       empty_label='Категория не выбрана',

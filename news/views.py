@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
+from django.core.mail import send_mail
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import NewsForm, RegisterUserForm, LoginUserForm
+from .forms import NewsForm, RegisterUserForm, LoginUserForm, ContactForm
 from .models import News, Category
 
 
@@ -80,3 +81,26 @@ class LoginUser(LoginView):
 
     def get_success_url(self):
         return reverse_lazy('home')
+
+
+class ContactFormView(LoginRequiredMixin, FormView):
+    form_class = ContactForm
+    template_name = 'news/contact.html'
+    success_url = reverse_lazy('home')
+    title_page = 'Обратная связь'
+
+    def form_valid(self, form):
+        subject = form.cleaned_data['subject']
+        content = form.cleaned_data['content']
+
+        send_mail(
+            subject=subject,
+            message=content,
+            from_email='no-reply@example.com',
+            recipient_list=['recipient@example.com'],
+        )
+
+        print(self.request._messages)
+        messages.success(self.request, "Письмо отправлено.")
+
+        return super().form_valid(form)

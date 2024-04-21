@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Обратная связь :: {{ block.super }}
+{% endblock %}
+
+{% block sidebar %}
+{% include 'news/inc/side_bar.html' %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Обратная связь</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary btn-block">Send</button>
+</form>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% endblock %}
