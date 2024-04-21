@@ -83,7 +83,7 @@ class LoginUser(LoginView):
         return reverse_lazy('home')
 
 
-class ContactFormView(LoginRequiredMixin, FormView):
+class ContactFormView(FormView):
     form_class = ContactForm
     template_name = 'news/contact.html'
     success_url = reverse_lazy('home')
@@ -100,7 +100,7 @@ class ContactFormView(LoginRequiredMixin, FormView):
             recipient_list=['recipient@example.com'],
         )
 
-        print(self.request._messages)
+
         messages.success(self.request, "Письмо отправлено.")
 
         return super().form_valid(form)
